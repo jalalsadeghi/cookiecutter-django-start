@@ -24,7 +24,7 @@ if jwt == "n":
 
 if pgadmin == "n":  
     with open("docker-compose.dev.yml", "r") as f:
-    	lines = f.readlines()
+        lines = f.readlines()
     with open("docker-compose.dev.yml", "w") as f:
     	for line in lines:
             if line.strip("\n") != "#nickname_to_delete":
