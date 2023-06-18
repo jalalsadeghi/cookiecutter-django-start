@@ -9,6 +9,10 @@
 
   "postgres_user": "user",
   "postgres_password": "password",
+  
+  "pgadmin": "y",
+  "pgadmin_user": "admin@admin.com",
+  "pgadmin_password": "password",
 
   "use_jwt": "y",
 
