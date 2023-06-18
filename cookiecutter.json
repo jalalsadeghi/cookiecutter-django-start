@@ -1,0 +1,21 @@
+{
+  "project_name":"MyProject",
+  "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_') }}",
+
+  "first_name":"author",
+  "last_name":"author lastname",
+
+  "license": ["MIT", "BEER", "None"],
+
+  "postgres_user": "user",
+  "postgres_password": "password",
+
+  "use_jwt": "y",
+
+  "_copy_without_render": [
+        "markdown_tools/*",
+        "frontend/src/**/*.vue",
+        "frontend/node_modules/*",
+        "backend/app/app/email-templates/**"
+    ]
+}
