@@ -11,7 +11,7 @@ pip install cookiecutter
 
 setup the project
 ```
-cookiecutter cookiecutter https://github.com/jalalsadeghi/cookiecutter-django-start.git
+cookiecutter https://github.com/jalalsadeghi/cookiecutter-django-start.git
 ```
 
 
