@@ -43,6 +43,9 @@ class RegisterApi(APIView):
 
     class InputRegisterSerializer(serializers.Serializer):
         email = serializers.EmailField(max_length=255)
+        username = serializers.CharField(max_length=20)
+        first_name = serializers.CharField(max_length=20, required=False)
+        last_name = serializers.CharField(max_length=20, required=False)
         bio = serializers.CharField(max_length=1000, required=False)
         password = serializers.CharField(
                 validators=[
@@ -58,6 +61,11 @@ class RegisterApi(APIView):
             if BaseUser.objects.filter(email=email).exists():
                 raise serializers.ValidationError("email Already Taken")
             return email
+        
+        def validate_username(self, username):
+            if BaseUser.objects.filter(username=username).exists():
+                raise serializers.ValidationError("username Already exists")
+            return username
 
         def validate(self, data):
             if not data.get("password") or not data.get("confirm_password"):
@@ -74,7 +82,7 @@ class RegisterApi(APIView):
 
         class Meta:
             model = BaseUser 
-            fields = ("email", "token", "created_at", "updated_at")
+            fields = ("email", "username", "token", "created_at", "updated_at")
 
         def get_token(self, user):
             data = dict()
@@ -94,9 +102,12 @@ class RegisterApi(APIView):
         serializer.is_valid(raise_exception=True)
         try:
             user = register(
-                    email=serializer.validated_data.get("email"),
-                    password=serializer.validated_data.get("password"),
-                    bio=serializer.validated_data.get("bio"),
+                    email       =serializer.validated_data.get("email"),
+                    username    =serializer.validated_data.get("username"),
+                    first_name  =serializer.validated_data.get("first_name"),
+                    last_name   =serializer.validated_data.get("lsat_name"),
+                    password    =serializer.validated_data.get("password"),
+                    bio         =serializer.validated_data.get("bio"),
                     )
         except Exception as ex:
             return Response(

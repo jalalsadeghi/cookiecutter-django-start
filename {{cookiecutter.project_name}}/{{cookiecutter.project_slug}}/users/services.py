@@ -6,14 +6,28 @@ from .models import BaseUser, Profile
 def create_profile(*, user:BaseUser, bio:str | None) -> Profile:
     return Profile.objects.create(user=user, bio=bio)
 
-def create_user(*, email:str, password:str) -> BaseUser:
-    return BaseUser.objects.create_user(email=email, password=password)
+def create_user(*, email:str, username:str, first_name:str, last_name:str, password:str) -> BaseUser:
+    return BaseUser.objects.create_user(email       =email, 
+                                        username    =username,
+                                        first_name  =first_name,
+                                        last_name   =last_name,
+                                        password    =password)
 
 
 @transaction.atomic
-def register(*, bio:str|None, email:str, password:str) -> BaseUser:
+def register(*, 
+             bio:str|None, 
+             email:str, 
+             username:str, 
+             first_name:str, 
+             last_name:str, 
+             password:str) -> BaseUser:
 
-    user = create_user(email=email, password=password)
+    user = create_user(email=email, 
+                       username    =username,
+                       first_name  =first_name,
+                       last_name   =last_name,
+                       password=password)
     create_profile(user=user, bio=bio)
 
     return user
