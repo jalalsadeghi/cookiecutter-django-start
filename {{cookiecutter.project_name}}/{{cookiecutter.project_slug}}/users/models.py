@@ -9,11 +9,20 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 
 class BaseUserManager(BUM):
-    def create_user(self, email, is_active=True, is_admin=False, password=None):
+    def create_user(self, email, username, first_name, last_name, is_active=True, is_admin=False, password=None):
         if not email:
             raise ValueError("Users must have an email address")
+        
+        if not username:
+            raise ValueError("The given username must be set")
 
-        user = self.model(email=self.normalize_email(email.lower()), is_active=is_active, is_admin=is_admin)
+        user = self.model(email=self.normalize_email(email.lower()),
+                          username = (username.lower()), 
+                          first_name = first_name,
+                          last_name = last_name,
+                          is_active=is_active, 
+                          is_admin=is_admin,
+                          )
 
         if password is not None:
             user.set_password(password)
@@ -25,12 +34,16 @@ class BaseUserManager(BUM):
 
         return user
 
-    def create_superuser(self, email, password=None):
+    def create_superuser(self, email, username, first_name, last_name, password=None,**extra_fields):
         user = self.create_user(
             email=email,
+            username = username,
+            first_name = first_name,
+            last_name = last_name,
             is_active=True,
             is_admin=True,
             password=password,
+            **extra_fields
         )
 
         user.is_superuser = True
@@ -86,9 +99,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user} >> {self.bio}"
-
-
-
-
-
-
