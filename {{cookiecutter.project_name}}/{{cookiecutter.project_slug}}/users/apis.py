@@ -105,7 +105,7 @@ class RegisterApi(APIView):
                     email       =serializer.validated_data.get("email"),
                     username    =serializer.validated_data.get("username"),
                     first_name  =serializer.validated_data.get("first_name"),
-                    last_name   =serializer.validated_data.get("lsat_name"),
+                    last_name   =serializer.validated_data.get("last_name"),
                     password    =serializer.validated_data.get("password"),
                     bio         =serializer.validated_data.get("bio"),
                     )
