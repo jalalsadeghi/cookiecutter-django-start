@@ -23,11 +23,11 @@ def register(*,
              last_name:str, 
              password:str) -> BaseUser:
 
-    user = create_user(email=email, 
-                       username    =username,
-                       first_name  =first_name,
-                       last_name   =last_name,
-                       password=password)
+    user = create_user(email        =email, 
+                       username     =username,
+                       first_name   =first_name,
+                       last_name    =last_name,
+                       password     =password)
     create_profile(user=user, bio=bio)
 
     return user
